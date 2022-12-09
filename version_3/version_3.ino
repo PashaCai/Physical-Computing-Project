@@ -1,0 +1,54 @@
+const int stepPin = 3; 
+const int dirPin = 4; 
+int dirButton = 2; //按钮
+int state = HIGH;
+int reading;
+int previous = LOW;
+int stepDelay=1000;
+int customDelay,customDelayMapped;
+
+
+long time = 0;
+long debounce = 200;
+
+void setup() { 
+  pinMode(stepPin,OUTPUT); 
+  pinMode(dirPin,OUTPUT); 
+  digitalWrite(dirPin,HIGH);
+pinMode(dirButton, INPUT_PULLUP);
+}
+
+void loop() { 
+  reading = digitalRead(dirButton);
+  customDelayMapped = speedUp();
+  digitalWrite(stepPin, HIGH);
+  delayMicroseconds(customDelayMapped);
+  digitalWrite(stepPin, LOW);
+  delayMicroseconds(customDelayMapped); 
+
+   if (reading == HIGH && previous == LOW && millis() - time > debounce) {
+    if (state == HIGH)
+      state = LOW;
+    else
+      state = HIGH;
+
+    time = millis();
+  }
+
+  digitalWrite(dirPin, state);
+
+  previous = reading;
+
+digitalWrite(stepPin, HIGH);
+delayMicroseconds(stepDelay);
+digitalWrite(stepPin, LOW);
+delayMicroseconds(stepDelay);
+}
+
+int speedUp() { 
+  int customDelay = analogRead(A0); 
+  // 读取电位器 
+  int newCustom = map(customDelay, 0, 1023, 300,4000); 
+  // 将电位计的读取值从 0 到 1023 转换为所需的延迟值（300 到 4000） 
+  return newCustom; 
+}
