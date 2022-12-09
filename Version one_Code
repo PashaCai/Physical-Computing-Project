@@ -1,20 +1,16 @@
 <h1>Version one_Code</h1>
-<p>
-const int SW_PIN = 4;//定义旋转编码开关的引脚
+
+const int SW_PIN = 4;//定义旋转编码开关的引脚 Defining the pins of the rotary code switch
 const int PIN_A =2;
 const int PIN_B =3;
 
 #include <Encoder.h> /*******************************/
 
-// 将这两个数字更改为连接到编码器的引脚。
-// 最佳性能：两个引脚都有中断能力
-// 良好的性能：只有第一个引脚具有中断能力
-// 低性能：两个引脚都没有中断能力
 Encoder myEnc(PIN_A, PIN_B);
 //  
 
-const int homePosition = 0; //初始位置
-const int stepValue = 3;//转动旋钮时舵机的旋转速度
+const int homePosition = 0; //初始位置 Initial position
+const int stepValue = 3;//转动旋钮时舵机的旋转速度 Rotation speed of the servo when the knob is turned
 const int servoPin = 9;//~必须是标有~的引脚舵机引脚
 #include <Servo.h> /*******************************/
 
@@ -109,4 +105,4 @@ void lcdAngel(int angel)
    lcd.print(angel); 
    lcd.print((char)223);
 }
-</p>
+
